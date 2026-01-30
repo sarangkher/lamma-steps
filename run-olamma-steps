@@ -1,0 +1,39 @@
+Bash
+
+curl -fsSL https://ollama.com/install.sh | sh
+3. Running Your First Model
+Given your 4GB VRAM, I recommend starting with Qwen2.5 1.5B. It is exceptionally "punchy" for its size and will stay entirely within your GPU memory for maximum speed.
+
+Run this command:
+
+Bash
+
+ollama run qwen2.5:1.5b
+The first time you run this, it will download the model (~1GB). Once finished, you can chat with it directly in the terminal.
+
+4. Recommended Models for your 4GB VRAM
+Since you have 16GB of system RAM, Ollama will automatically "spill over" into your RAM if the model is too big for the GTX 970. Here is what to try:
+
+For Speed (Full GPU): ollama run qwen2.5:1.5b
+
+For Intelligence (Hybrid GPU/RAM): ollama run llama3.2:3b
+
+For Coding/DevOps: ollama run deepseek-coder-v2:16b (This will use more system RAM and be slower, but very accurate for your DevOps tasks).
+
+5. Add a Web Interface (Optional)
+If you prefer a ChatGPT-like interface instead of the terminal, the best way to do this on Linux is via Open WebUI using Docker.
+
+If you have Docker installed, run:
+
+Bash
+
+docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/data --name open-webui ghcr.io/open-webui/open-webui:main
+Then open your browser and go to http://localhost:3000.
+
+Pro-Tip for the GTX 970 on Ubuntu:
+If you find that your GPU isn't being used, ensure your user is part of the render or video group:
+
+Bash
+
+sudo usermod -a -G render $USER
+sudo usermod -a -G video $USER
